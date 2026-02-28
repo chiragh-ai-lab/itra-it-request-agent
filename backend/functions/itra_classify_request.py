@@ -8,7 +8,7 @@ import boto3
 from utils import success, error, get_tenant_id, get_dynamodb_resource, get_bedrock_client
 
 TABLE_NAME = os.environ['TABLE_NAME']
-CLASSIFICATION_MODEL = os.environ.get('CLASSIFICATION_MODEL', 'us.anthropic.claude-haiku-4-5-20251001')
+CLASSIFICATION_MODEL = os.environ.get('CLASSIFICATION_MODEL', 'anthropic.claude-3-5-haiku-20241022-v1:0')
 
 CLASSIFICATION_PROMPT = """You are an IT request classification agent.
 

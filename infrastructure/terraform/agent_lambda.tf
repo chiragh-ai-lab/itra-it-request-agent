@@ -15,7 +15,7 @@ resource "aws_lambda_function" "classify_request" {
     variables = {
       TABLE_NAME           = aws_dynamodb_table.main.name
       BUCKET_NAME          = aws_s3_bucket.main.id
-      CLASSIFICATION_MODEL = "us.anthropic.claude-haiku-4-5-20251001"
+      CLASSIFICATION_MODEL = "anthropic.claude-3-5-haiku-20241022-v1:0"
     }
   }
 
@@ -72,7 +72,7 @@ resource "aws_lambda_function" "chat_agent" {
     variables = {
       TABLE_NAME = aws_dynamodb_table.main.name
       BUCKET_NAME = aws_s3_bucket.main.id
-      CHAT_MODEL = "us.anthropic.claude-sonnet-4-6-20260217"
+      CHAT_MODEL = "anthropic.claude-3-7-sonnet-20250219-v1:0"
     }
   }
 

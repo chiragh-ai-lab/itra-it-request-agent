@@ -38,6 +38,7 @@ export default function RequestDetailPage() {
   const [chatResponse, setChatResponse] = useState('');
   const [resolveText, setResolveText] = useState('');
   const [resolveLoading, setResolveLoading] = useState(false);
+  const [classifying, setClassifying] = useState(false);
 
   useEffect(() => {
     loadRequest();
@@ -86,11 +87,27 @@ export default function RequestDetailPage() {
   };
 
   const handleClassify = async () => {
+    setClassifying(true);
     try {
       await requestsApi.classify(params.id as string);
-      setTimeout(loadRequest, 2000); // Reload after 2 seconds
+      
+      // Poll for classification completion
+      let attempts = 0;
+      const maxAttempts = 15; // 30 seconds max
+      const pollInterval = setInterval(async () => {
+        attempts++;
+        const data = await requestsApi.get(params.id as string);
+        
+        if (data.request.status !== 'submitted' || attempts >= maxAttempts) {
+          clearInterval(pollInterval);
+          setRequest(data.request);
+          setClassifying(false);
+        }
+      }, 2000);
     } catch (error) {
       console.error('Error classifying:', error);
+      alert('Classification failed. Check console for details.');
+      setClassifying(false);
     }
   };
 
@@ -310,9 +327,20 @@ export default function RequestDetailPage() {
             </CardHeader>
             <CardContent className="space-y-2">
               {request.status === 'submitted' && (
-                <Button onClick={handleClassify} variant="outline" className="w-full">
-                  Trigger Classification
+                <Button 
+                  onClick={handleClassify} 
+                  variant="outline" 
+                  className="w-full"
+                  disabled={classifying}
+                >
+                  {classifying ? 'Classifying...' : 'Trigger Classification'}
                 </Button>
+              )}
+              
+              {classifying && (
+                <p className="text-xs text-muted-foreground text-center">
+                  AI is analyzing your request...
+                </p>
               )}
 
               {request.status !== 'resolved' && (
