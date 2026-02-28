@@ -108,6 +108,14 @@ resource "aws_iam_role_policy" "lambda_bedrock" {
           "arn:aws:bedrock:*::foundation-model/*",
           "arn:aws:bedrock:*:${data.aws_caller_identity.current.account_id}:inference-profile/*"
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "aws-marketplace:ViewSubscriptions",
+          "aws-marketplace:Subscribe"
+        ]
+        Resource = "*"
       }
     ]
   })
