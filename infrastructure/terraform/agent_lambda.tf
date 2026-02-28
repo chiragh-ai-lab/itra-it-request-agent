@@ -15,7 +15,7 @@ resource "aws_lambda_function" "classify_request" {
     variables = {
       TABLE_NAME           = aws_dynamodb_table.main.name
       BUCKET_NAME          = aws_s3_bucket.main.id
-      CLASSIFICATION_MODEL = "us.anthropic.claude-3-5-haiku-20241022-v1:0"
+      CLASSIFICATION_MODEL = "anthropic.claude-3-5-haiku-20241022-v1:0"
     }
   }
 
