@@ -14,10 +14,11 @@
     "react-dom": "^18.3.0",
     "@aws-amplify/ui-react": "^6.1.0",
     "aws-amplify": "^6.0.0",
-    "lucide-react": "^0.index": 400.0",
+    "lucide-react": "^0.400.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
