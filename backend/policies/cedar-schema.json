@@ -1,0 +1,73 @@
+{
+  "": {
+    "entityTypes": {
+      "Principal": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "role": {
+              "type": "String"
+            },
+            "tenant_id": {
+              "type": "String"
+            }
+          }
+        }
+      },
+      "Action": {
+        "shape": {
+          "type": "Record",
+          "attributes": {}
+        }
+      },
+      "Resource": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "request_id": {
+              "type": "String"
+            },
+            "severity": {
+              "type": "Long"
+            },
+            "category": {
+              "type": "String"
+            },
+            "action_count": {
+              "type": "Long"
+            },
+            "has_manager_approval": {
+              "type": "Boolean"
+            }
+          }
+        }
+      }
+    },
+    "actions": {
+      "provision_resource": {
+        "appliesTo": {
+          "principalTypes": ["Principal"],
+          "resourceTypes": ["Resource"]
+        }
+      },
+      "auto_resolve": {
+        "appliesTo": {
+          "principalTypes": ["Principal"],
+          "resourceTypes": ["Resource"]
+        }
+      },
+      "agent_action": {
+        "appliesTo": {
+          "principalTypes": ["Principal"],
+          "resourceTypes": ["Resource"]
+        }
+      },
+      "access_payroll": {
+        "appliesTo": {
+          "principalTypes": ["Principal"],
+          "resourceTypes": ["Resource"]
+        }
+      }
+    }
+  }
+}

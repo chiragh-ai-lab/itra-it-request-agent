@@ -1,0 +1,302 @@
+[
+  {
+    "id": "test_001",
+    "title": "Need VPN access for remote work",
+    "description": "I'm starting remote work next week and need VPN credentials to access the company network from home.",
+    "expected": {
+      "category": "access",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_002",
+    "title": "Production database is down",
+    "description": "Our main production database is completely unresponsive. All customer-facing services are offline. This is affecting thousands of users.",
+    "expected": {
+      "category": "cloud",
+      "severity": 1,
+      "routing_team": "cloud-ops"
+    }
+  },
+  {
+    "id": "test_003",
+    "title": "Laptop screen cracked",
+    "description": "I dropped my laptop and the screen is cracked. I can still use it with an external monitor but would like a replacement.",
+    "expected": {
+      "category": "hardware",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_004",
+    "title": "Install Slack on my machine",
+    "description": "Can someone help me install Slack? I need it for team communication.",
+    "expected": {
+      "category": "software",
+      "severity": 4,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_005",
+    "title": "Suspicious login attempts on my account",
+    "description": "I received multiple alerts about failed login attempts from an IP address in Russia. I'm concerned my account may be compromised.",
+    "expected": {
+      "category": "access",
+      "severity": 2,
+      "routing_team": "security"
+    }
+  },
+  {
+    "id": "test_006",
+    "title": "Need AWS S3 bucket for new project",
+    "description": "Our team is starting a new data analytics project and we need an S3 bucket provisioned with appropriate IAM permissions.",
+    "expected": {
+      "category": "cloud",
+      "severity": 3,
+      "routing_team": "cloud-ops"
+    }
+  },
+  {
+    "id": "test_007",
+    "title": "WiFi not working in conference room B",
+    "description": "The WiFi in conference room B on the 3rd floor is not working. We have a client meeting in 2 hours.",
+    "expected": {
+      "category": "network",
+      "severity": 2,
+      "routing_team": "infrastructure"
+    }
+  },
+  {
+    "id": "test_008",
+    "title": "Request admin access to production servers",
+    "description": "I need sudo access to the production web servers to deploy a critical hotfix.",
+    "expected": {
+      "category": "access",
+      "severity": 2,
+      "routing_team": "security"
+    }
+  },
+  {
+    "id": "test_009",
+    "title": "Printer out of toner",
+    "description": "The printer on the 2nd floor is out of toner. Can someone replace it?",
+    "expected": {
+      "category": "hardware",
+      "severity": 4,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_010",
+    "title": "Microsoft Office license expired",
+    "description": "My Office 365 license expired and I can't open any Word or Excel files. I need this for my work today.",
+    "expected": {
+      "category": "software",
+      "severity": 2,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_011",
+    "title": "Set up new employee workstation",
+    "description": "We have a new developer starting Monday. Need laptop, monitors, keyboard, mouse, and all standard software installed.",
+    "expected": {
+      "category": "hardware",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_012",
+    "title": "API gateway returning 500 errors",
+    "description": "Our API gateway has been returning 500 errors for the past 15 minutes. Multiple customers are reporting issues.",
+    "expected": {
+      "category": "cloud",
+      "severity": 1,
+      "routing_team": "cloud-ops"
+    }
+  },
+  {
+    "id": "test_013",
+    "title": "Reset my password",
+    "description": "I forgot my password and can't log in. Can you reset it for me?",
+    "expected": {
+      "category": "access",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_014",
+    "title": "Upgrade Python version on dev servers",
+    "description": "We need to upgrade Python from 3.9 to 3.12 on all development servers for a new project.",
+    "expected": {
+      "category": "software",
+      "severity": 3,
+      "routing_team": "development"
+    }
+  },
+  {
+    "id": "test_015",
+    "title": "VPN connection keeps dropping",
+    "description": "My VPN connection drops every 10-15 minutes. It's making it impossible to work remotely.",
+    "expected": {
+      "category": "network",
+      "severity": 2,
+      "routing_team": "infrastructure"
+    }
+  },
+  {
+    "id": "test_016",
+    "title": "Request access to HR database",
+    "description": "I need read access to the HR database for a reporting project I'm working on.",
+    "expected": {
+      "category": "access",
+      "severity": 3,
+      "routing_team": "security"
+    }
+  },
+  {
+    "id": "test_017",
+    "title": "Keyboard keys sticking",
+    "description": "Several keys on my keyboard are sticking. It's annoying but I can still work.",
+    "expected": {
+      "category": "hardware",
+      "severity": 4,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_018",
+    "title": "Install Docker on my laptop",
+    "description": "I need Docker installed on my development laptop for containerized testing.",
+    "expected": {
+      "category": "software",
+      "severity": 3,
+      "routing_team": "development"
+    }
+  },
+  {
+    "id": "test_019",
+    "title": "Firewall blocking legitimate traffic",
+    "description": "Our firewall is blocking traffic from a new partner's IP range. We need to whitelist them urgently.",
+    "expected": {
+      "category": "network",
+      "severity": 2,
+      "routing_team": "security"
+    }
+  },
+  {
+    "id": "test_020",
+    "title": "Increase EC2 instance size",
+    "description": "Our main application server is running out of memory. Need to upgrade from t3.medium to t3.large.",
+    "expected": {
+      "category": "cloud",
+      "severity": 2,
+      "routing_team": "cloud-ops"
+    }
+  },
+  {
+    "id": "test_021",
+    "title": "Mouse not working",
+    "description": "My wireless mouse stopped working. I tried changing batteries but no luck.",
+    "expected": {
+      "category": "hardware",
+      "severity": 4,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_022",
+    "title": "Zoom keeps crashing during meetings",
+    "description": "Zoom crashes every time I try to join a meeting. Very frustrating.",
+    "expected": {
+      "category": "software",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_023",
+    "title": "SSL certificate expiring soon",
+    "description": "Our main website SSL certificate expires in 3 days. Need to renew it ASAP.",
+    "expected": {
+      "category": "network",
+      "severity": 2,
+      "routing_team": "infrastructure"
+    }
+  },
+  {
+    "id": "test_024",
+    "title": "Need GitHub organization access",
+    "description": "I'm a new developer and need to be added to the company GitHub organization.",
+    "expected": {
+      "category": "access",
+      "severity": 3,
+      "routing_team": "development"
+    }
+  },
+  {
+    "id": "test_025",
+    "title": "Monitor flickering",
+    "description": "My second monitor keeps flickering. It's giving me a headache.",
+    "expected": {
+      "category": "hardware",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_026",
+    "title": "Update antivirus definitions",
+    "description": "Antivirus software is showing outdated definitions. Can this be updated?",
+    "expected": {
+      "category": "software",
+      "severity": 4,
+      "routing_team": "helpdesk"
+    }
+  },
+  {
+    "id": "test_027",
+    "title": "Internet speed very slow",
+    "description": "Internet connection is extremely slow today. Downloads that normally take seconds are taking minutes.",
+    "expected": {
+      "category": "network",
+      "severity": 3,
+      "routing_team": "infrastructure"
+    }
+  },
+  {
+    "id": "test_028",
+    "title": "Lambda function timeout errors",
+    "description": "Our data processing Lambda is timing out after 15 minutes. Need to increase timeout or optimize code.",
+    "expected": {
+      "category": "cloud",
+      "severity": 2,
+      "routing_team": "development"
+    }
+  },
+  {
+    "id": "test_029",
+    "title": "Request elevated privileges for deployment",
+    "description": "I need temporary elevated privileges to deploy the new release to production tonight.",
+    "expected": {
+      "category": "access",
+      "severity": 2,
+      "routing_team": "security"
+    }
+  },
+  {
+    "id": "test_030",
+    "title": "Headset microphone not working",
+    "description": "My headset microphone isn't working in Teams calls. People can't hear me.",
+    "expected": {
+      "category": "hardware",
+      "severity": 3,
+      "routing_team": "helpdesk"
+    }
+  }
+]

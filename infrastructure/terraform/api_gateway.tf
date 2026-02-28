@@ -27,16 +27,28 @@ resource "aws_api_gateway_deployment" "main" {
       aws_api_gateway_resource.health.id,
       aws_api_gateway_resource.requests.id,
       aws_api_gateway_resource.request_id.id,
+      aws_api_gateway_resource.request_classify.id,
+      aws_api_gateway_resource.request_action.id,
+      aws_api_gateway_resource.request_chat.id,
+      aws_api_gateway_resource.request_resolve.id,
       # Methods
       module.health_get.method.id,
       module.requests_post.method.id,
       module.requests_get.method.id,
       module.request_id_get.method.id,
       module.request_id_patch.method.id,
+      module.request_classify_post.method.id,
+      module.request_action_post.method.id,
+      module.request_chat_post.method.id,
+      module.request_resolve_post.method.id,
       # CORS
       module.health_cors.method.id,
       module.requests_cors.method.id,
       module.request_id_cors.method.id,
+      module.request_classify_cors.method.id,
+      module.request_action_cors.method.id,
+      module.request_chat_cors.method.id,
+      module.request_resolve_cors.method.id,
     ]))
   }
 
@@ -52,7 +64,15 @@ resource "aws_api_gateway_deployment" "main" {
     module.requests_cors,
     module.request_id_get,
     module.request_id_patch,
-    module.request_id_cors
+    module.request_id_cors,
+    module.request_classify_post,
+    module.request_classify_cors,
+    module.request_action_post,
+    module.request_action_cors,
+    module.request_chat_post,
+    module.request_chat_cors,
+    module.request_resolve_post,
+    module.request_resolve_cors
   ]
 }
 

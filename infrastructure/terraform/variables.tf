@@ -33,3 +33,9 @@ variable "lambda_memory_size" {
   type        = number
   default     = 512
 }
+
+variable "sender_email" {
+  description = "Email address for sending notifications via SES"
+  type        = string
+  default     = "noreply@example.com"
+}
