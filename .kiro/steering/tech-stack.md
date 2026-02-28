@@ -33,10 +33,10 @@
 
 **Environment Variables:**
 ```
-CLASSIFICATION_MODEL=anthropic.claude-3-5-haiku-20241022-v1:0
-CHAT_MODEL=anthropic.claude-3-7-sonnet-20250219-v1:0
-ACTION_MODEL=anthropic.claude-3-7-sonnet-20250219-v1:0
-DEFAULT_MODEL=anthropic.claude-3-7-sonnet-20250219-v1:0
+CLASSIFICATION_MODEL=us.anthropic.claude-3-5-haiku
+CHAT_MODEL=us.anthropic.claude-3-7-sonnet
+ACTION_MODEL=us.anthropic.claude-3-7-sonnet
+DEFAULT_MODEL=us.anthropic.claude-3-7-sonnet
 ```
 
 ## AgentCore Services
