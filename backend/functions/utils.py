@@ -66,8 +66,8 @@ def get_dynamodb_resource():
     return boto3.resource('dynamodb')
 
 def get_bedrock_client():
-    """Get Bedrock runtime client"""
-    return boto3.client('bedrock-runtime')
+    """Get Bedrock runtime client in us-east-1"""
+    return boto3.client('bedrock-runtime', region_name='us-east-1')
 
 def generate_presigned_url(bucket, key, operation='put_object', expiry=3600):
     """
