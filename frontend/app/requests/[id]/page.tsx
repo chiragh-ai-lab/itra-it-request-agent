@@ -87,26 +87,47 @@ export default function RequestDetailPage() {
   };
 
   const handleClassify = async () => {
+    console.log('🔵 Classification button clicked');
+    console.log('🔵 Request ID:', params.id);
     setClassifying(true);
+    
     try {
-      await requestsApi.classify(params.id as string);
+      console.log('🔵 Calling classify API...');
+      const result = await requestsApi.classify(params.id as string);
+      console.log('🔵 Classify API response:', result);
       
       // Poll for classification completion
       let attempts = 0;
       const maxAttempts = 15; // 30 seconds max
+      console.log('🔵 Starting polling for classification completion...');
+      
       const pollInterval = setInterval(async () => {
         attempts++;
-        const data = await requestsApi.get(params.id as string);
+        console.log(`🔵 Poll attempt ${attempts}/${maxAttempts}`);
         
-        if (data.request.status !== 'submitted' || attempts >= maxAttempts) {
-          clearInterval(pollInterval);
-          setRequest(data.request);
-          setClassifying(false);
+        try {
+          const data = await requestsApi.get(params.id as string);
+          console.log('🔵 Current request status:', data.request.status);
+          
+          if (data.request.status !== 'submitted' || attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+            console.log('🔵 Classification complete or timeout reached');
+            setRequest(data.request);
+            setClassifying(false);
+            
+            if (data.request.status === 'classified') {
+              alert('✅ Classification complete! Check the Details section for results.');
+            } else if (attempts >= maxAttempts) {
+              alert('⏱️ Classification is taking longer than expected. Please refresh the page.');
+            }
+          }
+        } catch (pollError) {
+          console.error('🔴 Error during polling:', pollError);
         }
       }, 2000);
     } catch (error) {
-      console.error('Error classifying:', error);
-      alert('Classification failed. Check console for details.');
+      console.error('🔴 Error classifying:', error);
+      alert(`❌ Classification failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setClassifying(false);
     }
   };

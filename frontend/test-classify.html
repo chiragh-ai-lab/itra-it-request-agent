@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Classify Button</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #0070f3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    #log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .error { color: red; }
+    .success { color: green; }
+    .info { color: blue; }
+  </style>
+</head>
+<body>
+  <h1>Test Classification Button</h1>
+  
+  <div>
+    <label>Request ID:</label>
+    <input type="text" id="requestId" placeholder="Enter request ID" style="width: 300px; padding: 5px;">
+  </div>
+  
+  <div style="margin-top: 10px;">
+    <label>JWT Token:</label>
+    <input type="text" id="jwtToken" placeholder="Paste JWT token from browser console" style="width: 100%; padding: 5px;">
+    <small>Get token from browser console: <code>(await Auth.currentSession()).getIdToken().getJwtToken()</code></small>
+  </div>
+  
+  <div style="margin-top: 20px;">
+    <button id="classifyBtn" onclick="testClassify()">Trigger Classification</button>
+  </div>
+  
+  <div id="log"></div>
+
+  <script>
+    const API_ENDPOINT = 'https://a9b9lfjtn2.execute-api.us-east-1.amazonaws.com/dev';
+    
+    function log(message, type = 'info') {
+      const logDiv = document.getElementById('log');
+      const timestamp = new Date().toLocaleTimeString();
+      const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+      logDiv.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+    
+    async function testClassify() {
+      const requestId = document.getElementById('requestId').value;
+      const jwtToken = document.getElementById('jwtToken').value;
+      const btn = document.getElementById('classifyBtn');
+      
+      if (!requestId || !jwtToken) {
+        alert('Please enter both Request ID and JWT Token');
+        return;
+      }
+      
+      btn.disabled = true;
+      log('🔵 Starting classification test...', 'info');
+      log(`🔵 Request ID: ${requestId}`, 'info');
+      
+      try {
+        // Call classify endpoint
+        log('🔵 Calling classify API...', 'info');
+        const classifyUrl = `${API_ENDPOINT}/requests/${requestId}/classify`;
+        log(`🔵 URL: ${classifyUrl}`, 'info');
+        
+        const response = await fetch(classifyUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': jwtToken
+          }
+        });
+        
+        log(`🔵 Response status: ${response.status} ${response.statusText}`, 'info');
+        
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+          log(`🔴 Error: ${JSON.stringify(errorData)}`, 'error');
+          btn.disabled = false;
+          return;
+        }
+        
+        const data = await response.json();
+        log(`✅ Classify API response: ${JSON.stringify(data, null, 2)}`, 'success');
+        
+        // Start polling
+        log('🔵 Starting polling for classification completion...', 'info');
+        let attempts = 0;
+        const maxAttempts = 15;
+        
+        const pollInterval = setInterval(async () => {
+          attempts++;
+          log(`🔵 Poll attempt ${attempts}/${maxAttempts}`, 'info');
+          
+          try {
+            const getUrl = `${API_ENDPOINT}/requests/${requestId}`;
+            const getResponse = await fetch(getUrl, {
+              headers: {
+                'Authorization': jwtToken
+              }
+            });
+            
+            if (!getResponse.ok) {
+              log(`🔴 Error fetching request: ${getResponse.status}`, 'error');
+              return;
+            }
+            
+            const requestData = await getResponse.json();
+            log(`🔵 Current status: ${requestData.request.status}`, 'info');
+            
+            if (requestData.request.status !== 'submitted' || attempts >= maxAttempts) {
+              clearInterval(pollInterval);
+              
+              if (requestData.request.status === 'classified') {
+                log(`✅ Classification complete!`, 'success');
+                log(`✅ Category: ${requestData.request.category}`, 'success');
+                log(`✅ Severity: ${requestData.request.severity}`, 'success');
+                log(`✅ Routing Team: ${requestData.request.routing_team}`, 'success');
+                log(`✅ Confidence: ${(requestData.request.classification_confidence * 100).toFixed(0)}%`, 'success');
+              } else if (attempts >= maxAttempts) {
+                log(`⏱️ Timeout: Classification is taking longer than expected`, 'error');
+              }
+              
+              btn.disabled = false;
+            }
+          } catch (pollError) {
+            log(`🔴 Polling error: ${pollError.message}`, 'error');
+          }
+        }, 2000);
+        
+      } catch (error) {
+        log(`🔴 Error: ${error.message}`, 'error');
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
