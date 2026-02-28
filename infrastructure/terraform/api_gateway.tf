@@ -25,10 +25,18 @@ resource "aws_api_gateway_deployment" "main" {
       # Resources
       aws_api_gateway_rest_api.main.root_resource_id,
       aws_api_gateway_resource.health.id,
+      aws_api_gateway_resource.requests.id,
+      aws_api_gateway_resource.request_id.id,
       # Methods
       module.health_get.method.id,
+      module.requests_post.method.id,
+      module.requests_get.method.id,
+      module.request_id_get.method.id,
+      module.request_id_patch.method.id,
       # CORS
       module.health_cors.method.id,
+      module.requests_cors.method.id,
+      module.request_id_cors.method.id,
     ]))
   }
 
@@ -38,7 +46,13 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     module.health_get,
-    module.health_cors
+    module.health_cors,
+    module.requests_post,
+    module.requests_get,
+    module.requests_cors,
+    module.request_id_get,
+    module.request_id_patch,
+    module.request_id_cors
   ]
 }
 
