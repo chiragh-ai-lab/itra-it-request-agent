@@ -27,13 +27,8 @@ export async function apiCall<T = any>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
-  console.log(`🌐 API Call: ${options.method || 'GET'} ${path}`);
-  
   const token = await getAuthToken();
   const url = `${API_ENDPOINT}${path}`;
-  
-  console.log(`🌐 Full URL: ${url}`);
-  console.log(`🌐 Has token: ${!!token}`);
 
   const response = await fetch(url, {
     ...options,
@@ -44,16 +39,12 @@ export async function apiCall<T = any>(
     },
   });
 
-  console.log(`🌐 Response status: ${response.status} ${response.statusText}`);
-
   if (!response.ok) {
     const error = await response.json().catch(() => ({ error: 'Request failed' }));
-    console.error(`🌐 API Error:`, error);
     throw new ApiError(response.status, error.error || `HTTP ${response.status}`);
   }
 
   const data = await response.json();
-  console.log(`🌐 Response data:`, data);
   return data;
 }
 

@@ -87,48 +87,38 @@ export default function RequestDetailPage() {
   };
 
   const handleClassify = async () => {
-    alert('🔵 Button clicked! Check console for details.');
-    console.log('🔵 Classification button clicked');
-    console.log('🔵 Request ID:', params.id);
-    console.log('🔵 Request object:', request);
     setClassifying(true);
     
     try {
-      console.log('🔵 Calling classify API...');
-      const result = await requestsApi.classify(params.id as string);
-      console.log('🔵 Classify API response:', result);
+      await requestsApi.classify(params.id as string);
       
       // Poll for classification completion
       let attempts = 0;
       const maxAttempts = 15; // 30 seconds max
-      console.log('🔵 Starting polling for classification completion...');
       
       const pollInterval = setInterval(async () => {
         attempts++;
-        console.log(`🔵 Poll attempt ${attempts}/${maxAttempts}`);
         
         try {
           const data = await requestsApi.get(params.id as string);
-          console.log('🔵 Current request status:', data.request.status);
           
           if (data.request.status !== 'submitted' || attempts >= maxAttempts) {
             clearInterval(pollInterval);
-            console.log('🔵 Classification complete or timeout reached');
             setRequest(data.request);
             setClassifying(false);
             
             if (data.request.status === 'classified') {
-              alert('✅ Classification complete! Check the Details section for results.');
+              // Silently update - no alert needed
             } else if (attempts >= maxAttempts) {
               alert('⏱️ Classification is taking longer than expected. Please refresh the page.');
             }
           }
         } catch (pollError) {
-          console.error('🔴 Error during polling:', pollError);
+          console.error('Error during polling:', pollError);
         }
       }, 2000);
     } catch (error) {
-      console.error('🔴 Error classifying:', error);
+      console.error('Error classifying:', error);
       alert(`❌ Classification failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setClassifying(false);
     }
@@ -350,23 +340,14 @@ export default function RequestDetailPage() {
             </CardHeader>
             <CardContent className="space-y-2">
               {request.status === 'submitted' && (
-                <>
-                  <Button 
-                    onClick={() => alert('Test button works!')} 
-                    variant="secondary" 
-                    className="w-full"
-                  >
-                    Test Button (Click Me First)
-                  </Button>
-                  <Button 
-                    onClick={handleClassify} 
-                    variant="outline" 
-                    className="w-full"
-                    disabled={classifying}
-                  >
-                    {classifying ? 'Classifying...' : 'Trigger Classification'}
-                  </Button>
-                </>
+                <Button 
+                  onClick={handleClassify} 
+                  variant="outline" 
+                  className="w-full"
+                  disabled={classifying}
+                >
+                  {classifying ? 'Classifying...' : 'Trigger Classification'}
+                </Button>
               )}
               
               {classifying && (
