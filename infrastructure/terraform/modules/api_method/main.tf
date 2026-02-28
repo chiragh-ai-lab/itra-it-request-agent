@@ -40,6 +40,8 @@ variable "aws_region" {
   type        = string
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_api_gateway_method" "method" {
   rest_api_id   = var.rest_api_id
   resource_id   = var.resource_id
@@ -62,7 +64,7 @@ resource "aws_lambda_permission" "api_gateway" {
   action        = "lambda:InvokeFunction"
   function_name = var.lambda_function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:${var.aws_region}:*:${var.rest_api_id}/*/${var.http_method}/*"
+  source_arn    = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${var.rest_api_id}/*/${var.http_method}/*"
 }
 
 output "method" {
