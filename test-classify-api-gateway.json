@@ -1,0 +1,20 @@
+{
+  "resource": "/requests/{id}/classify",
+  "path": "/requests/req_02b4c4fbae80/classify",
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "pathParameters": {
+    "id": "req_02b4c4fbae80"
+  },
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "sub": "3408c4a8-b061-70b9-fb44-c83a6a5b0fc7",
+        "email": "replyChiraghQ@gmail.com"
+      }
+    }
+  },
+  "body": null
+}

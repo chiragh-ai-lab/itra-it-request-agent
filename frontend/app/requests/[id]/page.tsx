@@ -87,8 +87,10 @@ export default function RequestDetailPage() {
   };
 
   const handleClassify = async () => {
+    alert('🔵 Button clicked! Check console for details.');
     console.log('🔵 Classification button clicked');
     console.log('🔵 Request ID:', params.id);
+    console.log('🔵 Request object:', request);
     setClassifying(true);
     
     try {
@@ -348,14 +350,23 @@ export default function RequestDetailPage() {
             </CardHeader>
             <CardContent className="space-y-2">
               {request.status === 'submitted' && (
-                <Button 
-                  onClick={handleClassify} 
-                  variant="outline" 
-                  className="w-full"
-                  disabled={classifying}
-                >
-                  {classifying ? 'Classifying...' : 'Trigger Classification'}
-                </Button>
+                <>
+                  <Button 
+                    onClick={() => alert('Test button works!')} 
+                    variant="secondary" 
+                    className="w-full"
+                  >
+                    Test Button (Click Me First)
+                  </Button>
+                  <Button 
+                    onClick={handleClassify} 
+                    variant="outline" 
+                    className="w-full"
+                    disabled={classifying}
+                  >
+                    {classifying ? 'Classifying...' : 'Trigger Classification'}
+                  </Button>
+                </>
               )}
               
               {classifying && (

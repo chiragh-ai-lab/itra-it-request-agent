@@ -1,0 +1,7 @@
+{
+  "mode": "classify",
+  "tenant_id": "3408c4a8-b061-70b9-fb44-c83a6a5b0fc7",
+  "request_id": "req_02b4c4fbae80",
+  "title": "Production database is down",
+  "description": "Our main production database is completely unresponsive. All customer-facing services are offline. This is affecting thousands of users."
+}
